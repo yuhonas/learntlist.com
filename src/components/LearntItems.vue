@@ -1,9 +1,9 @@
 <template>
   <q-page class="flex">
-    <div class="row">
+    <div class="q-pa-md row items-start q-gutter-md">
       <q-card class="my-card" flat bordered v-for="item in items" :key="item.url">
         <q-card-section>
-          {{ item.url }}
+          <div class="text-h6">{{ item.url }}</div>
         </q-card-section>
       </q-card>
     </div>
