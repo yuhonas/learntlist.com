@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header elevated class="q-pa-md">
         <div>LearntList</div>
     </q-header>
     <q-page-container>

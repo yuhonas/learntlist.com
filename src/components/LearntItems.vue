@@ -1,9 +1,10 @@
 <template>
   <q-page class="flex">
     <div class="q-pa-md row items-start q-gutter-md">
-      <q-card class="my-card" flat bordered v-for="item in items" :key="item.url">
+      <q-spinner-gears color="primary" size="4em" v-if="loading" />
+      <q-card class="my-card" flat bordered v-for="learnt in learnts" :key="learnt.url">
         <q-card-section>
-          <div class="text-h6">{{ item.url }}</div>
+          <div class="text-h6">{{ learnt.id }}</div>
         </q-card-section>
       </q-card>
     </div>
@@ -14,15 +15,31 @@
 </style>
 
 <script>
+import { API } from 'aws-amplify';
+import { listLearnts } from '../graphql/queries';
+
 export default {
   name: 'LearntItems',
+  async created() {
+    this.getLearnts();
+  },
   data() {
     return {
-      items: [
-        { url: 'http://www.google.com' },
-        { url: 'http://www.example.com' },
-      ]
+      learnts: [
+      ],
+      nextToken: null,
+      loading: true
     }
-  }
-}
+  },
+  methods: {
+    async getLearnts() {
+      const learnts = await API.graphql({
+        query: listLearnts
+      });
+
+      this.learnts = learnts.data.listLearnts.items;
+      this.nextToken = learnts.data.listLearnts.nextToken;
+      this.loading = false
+    }
+  }}
 </script>
