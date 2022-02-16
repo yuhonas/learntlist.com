@@ -4,8 +4,8 @@
 export const onCreateLearnt = /* GraphQL */ `
   subscription OnCreateLearnt {
     onCreateLearnt {
-      url
       id
+      url
       createdAt
       updatedAt
       _version
@@ -17,8 +17,8 @@ export const onCreateLearnt = /* GraphQL */ `
 export const onUpdateLearnt = /* GraphQL */ `
   subscription OnUpdateLearnt {
     onUpdateLearnt {
-      url
       id
+      url
       createdAt
       updatedAt
       _version
@@ -30,8 +30,8 @@ export const onUpdateLearnt = /* GraphQL */ `
 export const onDeleteLearnt = /* GraphQL */ `
   subscription OnDeleteLearnt {
     onDeleteLearnt {
-      url
       id
+      url
       createdAt
       updatedAt
       _version

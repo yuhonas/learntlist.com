@@ -5,7 +5,12 @@ export const getLearnt = /* GraphQL */ `
   query GetLearnt($id: ID!) {
     getLearnt(id: $id) {
       id
+      url
+      createdAt
+      updatedAt
+      _version
       _deleted
+      _lastChangedAt
     }
   }
 `;
@@ -18,7 +23,12 @@ export const listLearnts = /* GraphQL */ `
     listLearnts(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        url
+        createdAt
+        updatedAt
+        _version
         _deleted
+        _lastChangedAt
       }
       nextToken
       startedAt
@@ -40,7 +50,12 @@ export const syncLearnts = /* GraphQL */ `
     ) {
       items {
         id
+        url
+        createdAt
+        updatedAt
+        _version
         _deleted
+        _lastChangedAt
       }
       nextToken
       startedAt

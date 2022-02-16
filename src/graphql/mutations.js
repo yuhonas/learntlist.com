@@ -7,8 +7,8 @@ export const createLearnt = /* GraphQL */ `
     $condition: ModelLearntConditionInput
   ) {
     createLearnt(input: $input, condition: $condition) {
-      url
       id
+      url
       createdAt
       updatedAt
       _version
@@ -23,8 +23,8 @@ export const updateLearnt = /* GraphQL */ `
     $condition: ModelLearntConditionInput
   ) {
     updateLearnt(input: $input, condition: $condition) {
-      url
       id
+      url
       createdAt
       updatedAt
       _version
@@ -39,8 +39,8 @@ export const deleteLearnt = /* GraphQL */ `
     $condition: ModelLearntConditionInput
   ) {
     deleteLearnt(input: $input, condition: $condition) {
-      url
       id
+      url
       createdAt
       updatedAt
       _version

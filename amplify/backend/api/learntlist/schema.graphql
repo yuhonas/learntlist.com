@@ -4,4 +4,5 @@ input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONL
 
 type Learnt @model {
   id: ID!
+  url: String!
 }

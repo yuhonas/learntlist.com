@@ -1,26 +1,27 @@
-#
-require 'aws-sdk-dynamodb'
+require 'uri'
+require 'httparty'
+require 'csv'
 
-dynamodb = Aws::DynamoDB::Client.new
-
-if ARGV.empty?
-  puts "Error: Please provide the table name you'd like to import too eg ./#{__FILE__} <table_name>"
-  exit 1
-end
-
-table_name = ARGV.first.strip
-
-STDIN.readlines.each do |line|
+ARGF.readlines.each_with_index do |line, index|
   line.strip!
 
-  STDERR.puts "- Importing '#{line}' into '#{table_name}'"
+  begin
+    uri = URI(line)
+    path = uri.path.split('/').last
 
-  dynamodb.put_item({
-    table_name: table_name,
-    item: {
-      'id' => line.to_s.strip
-    }
-  })
+    result = HTTParty.get(
+      "https://en.wikipedia.org/w/api.php?action=query&prop=pageprops&titles=#{path}&format=json",
+      { headers: {"User-Agent" => "LearntList Crawler 1.0" } }
+    )
+
+    wiki_id = result["query"]["pages"].to_a[0][1].dig('pageprops','wikibase_item')
+    puts "#{uri},#{path},#{wiki_id}"
+
+  rescue URI::InvalidURIError
+    puts "#{line},,"
+  end
+
+  STDOUT.flush
 end
 
 

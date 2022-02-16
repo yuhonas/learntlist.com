@@ -1,10 +1,13 @@
 <template>
   <q-page class="flex">
+    <q-input outlined v-model="text" label="New Item..." />
+    <q-btn label="Submit" type="submit" color="primary" @click="submitForm" />
+
     <div class="q-pa-md row items-start q-gutter-md">
       <q-spinner-gears color="primary" size="4em" v-if="loading" />
       <q-card class="my-card" flat bordered v-for="learnt in learnts" :key="learnt.url">
         <q-card-section>
-          <div class="text-h6">{{ learnt.id }}</div>
+          <div class="text-h6">{{ learnt.url }}</div>
         </q-card-section>
       </q-card>
     </div>
@@ -17,6 +20,7 @@
 <script>
 import { API } from 'aws-amplify';
 import { listLearnts } from '../graphql/queries';
+import { createLearnt } from '../graphql/mutations';
 
 export default {
   name: 'LearntItems',
@@ -25,6 +29,7 @@ export default {
   },
   data() {
     return {
+      text: "",
       learnts: [
       ],
       nextToken: null,
@@ -40,6 +45,21 @@ export default {
       this.learnts = learnts.data.listLearnts.items;
       this.nextToken = learnts.data.listLearnts.nextToken;
       this.loading = false
+    },
+    async submitForm() {
+      try {
+          await API.graphql({
+            query: createLearnt,
+            variables: {
+              input: {
+                url: this.text.trim()
+              }
+            }
+          })
+          console.log('New contact created!');
+        } catch (err) {
+          console.log({ err });
+        }
     }
   }}
 </script>
